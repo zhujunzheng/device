@@ -1,11 +1,12 @@
-package rfid;
+package socket;
   
 import java.util.concurrent.TimeUnit;
 
+import enums.ConfigEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
- 
-import socket.NettyClientHandler;
+
+import rfid.ConfigMsg;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -37,8 +38,8 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public static void initclient() throws InterruptedException {
-		String ip=PropertiesUtil.getUrlValue(ConfigMsg.SERVICE_IP);
-		int port=Integer.parseInt(PropertiesUtil.getUrlValue(ConfigMsg.SERVICE_PORT));
+		String ip=PropertiesUtil.getUrlValue(ConfigEnum.SOCKET_IP.getCode());
+		int port=Integer.parseInt(PropertiesUtil.getUrlValue(ConfigEnum.SOCLET_PORT.getCode()));
         logger.info("开始注册设备连接服务端");
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -48,7 +49,7 @@ public class Main {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ByteBuf delimiter = Unpooled.copiedBuffer(ConfigMsg.DELIMITER.getBytes());
+                            ByteBuf delimiter = Unpooled.copiedBuffer(ConfigEnum.DELIMITER.getCode().getBytes());
                             ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024*4, delimiter));
                             ch.pipeline().addLast(new StringDecoder());
                             ch.pipeline().addLast(new NettyClientHandler());
@@ -59,7 +60,7 @@ public class Main {
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             logger.error(String.format("连接服务端失败：%s", e.getMessage()));
-            int reconnect=Integer.parseInt(PropertiesUtil.getUrlValue(ConfigMsg.RECONNECT));
+            int reconnect=Integer.parseInt(PropertiesUtil.getUrlValue(ConfigEnum.RECONNECT_TIME.getCode()));
             Thread.sleep(reconnect);
             initclient();
 		} finally {

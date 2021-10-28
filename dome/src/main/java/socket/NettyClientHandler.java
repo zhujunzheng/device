@@ -26,7 +26,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import rfid.ConfigMsg;
-import rfid.Main;
 import rfid.RFIDBase;
 import rtx.RdfSendRunnable;
 import rtx.SerialPortTools;
