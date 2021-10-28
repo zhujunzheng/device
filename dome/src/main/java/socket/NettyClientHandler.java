@@ -1,4 +1,4 @@
-package camera;
+package socket;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import camera.ReceiveRunnable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,6 @@ import io.netty.util.concurrent.DefaultThreadFactory;
 import rfid.ConfigMsg;
 import rfid.Main;
 import rfid.RFIDBase;
-import rfid.StringUtils;
 import rtx.RdfSendRunnable;
 import rtx.SerialPortTools;
 import utils.PropertiesUtil;

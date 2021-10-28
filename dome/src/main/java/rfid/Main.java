@@ -1,12 +1,11 @@
 package rfid;
   
-import java.net.ConnectException;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
  
-import camera.NettyClientHandler;
+import socket.NettyClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
